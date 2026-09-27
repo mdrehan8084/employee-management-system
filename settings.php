@@ -1,0 +1,130 @@
+<?php
+require 'config.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - EMS Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon"><i class="bi bi-people-fill"></i></div>
+            <span>EMS Portal</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.php" class="nav-item">
+                <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+            <a href="employees.php" class="nav-item">
+                <i class="bi bi-person-badge"></i> Employees
+            </a>
+            <a href="reports.php" class="nav-item">
+                <i class="bi bi-bar-chart-fill"></i> Reports
+            </a>
+            <a href="settings.php" class="nav-item active">
+                <i class="bi bi-gear-fill"></i> Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-chip">
+                <div class="user-avatar"><?php echo strtoupper(substr($_SESSION['username'], 0, 1)); ?></div>
+                <div>
+                    <div class="user-name"><?php echo htmlspecialchars($_SESSION['username']); ?></div>
+                    <div class="user-role">Administrator</div>
+                </div>
+            </div>
+            <a href="logout.php" class="logout-btn"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main-content">
+
+        <div class="page-header">
+            <div>
+                <h1>Settings</h1>
+                <p class="text-muted">Manage your account preferences</p>
+            </div>
+        </div>
+
+        <div class="settings-grid">
+
+            <!-- Profile Info Card -->
+            <div class="card-box">
+                <h5>Profile Information</h5>
+                <div class="profile-info">
+                    <div class="profile-avatar-large">
+                        <?php echo strtoupper(substr($_SESSION['username'], 0, 1)); ?>
+                    </div>
+                    <div>
+                        <div class="profile-name"><?php echo htmlspecialchars($_SESSION['username']); ?></div>
+                        <div class="profile-role">Administrator</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span>Username</span>
+                    <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
+                </div>
+                <div class="info-row">
+                    <span>Role</span>
+                    <strong>Administrator</strong>
+                </div>
+                <div class="info-row">
+                    <span>Account Status</span>
+                    <strong style="color:#10b981;"><i class="bi bi-check-circle-fill"></i> Active</strong>
+                </div>
+            </div>
+
+            <!-- Change Password Card -->
+            <div class="card-box">
+                <h5>Change Password</h5>
+                <div id="settingsAlertBox"></div>
+
+                <form id="passwordForm">
+                    <div class="form-group-custom">
+                        <label>Current Password</label>
+                        <input type="password" id="currentPassword" required>
+                    </div>
+                    <div class="form-group-custom">
+                        <label>New Password</label>
+                        <input type="password" id="newPassword" required minlength="6">
+                    </div>
+                    <div class="form-group-custom">
+                        <label>Confirm New Password</label>
+                        <input type="password" id="confirmPassword" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn-save">
+                        <i class="bi bi-shield-lock"></i> Update Password
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/settings.js"></script>
+</body>
+</html>
